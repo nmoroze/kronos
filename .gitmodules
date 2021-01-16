@@ -1,0 +1,3 @@
+[submodule "soc/opentitan"]
+	path = soc/opentitan
+	url = git@github.com:nmoroze/opentitan-kronos.git

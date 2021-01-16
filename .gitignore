@@ -1,0 +1,45 @@
+compiled/
+opentitan.rkt
+opentitan-multiclk.rkt
+prim_fifo_async_*.rkt
+prim_fifo_sync_*.rkt
+prim_fifo_sync_*.smt2
+prim_fifo_async_*.smt2
+prim_fifo_sync.v
+prim_fifo_async.v
+soc/opentitan.v
+soc/opentitan-multiclk.v
+soc/opentitan_patched.v
+soc/opentitan-multiclk_patched.v
+soc/opentitan.json
+soc/opentitan-multiclk.json
+*.smt2
+*.mem
+*.elf
+*.bin
+*.lst
+*.o
+
+*.out
+*.vcd
+
+.DS_Store
+
+# Python
+venv/
+__pycache__/
+
+# Vivado garbage
+*.wdb
+*.jou
+*.log
+*.pb
+xsim.dir/
+
+# Yosys visualizations
+*.svg
+*.dot
+
+.env
+
+data/
