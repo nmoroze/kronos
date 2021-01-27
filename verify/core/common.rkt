@@ -14,7 +14,7 @@
 (provide rom-data filtered-state filtered-state-names filtered-state-getters
          all-state-getters inputs output-getters-phase-1 output-getters-phase-2)
 
-(define-runtime-path rom-path "../../fw/bootrom.mem")
+(define-runtime-path rom-path "../../soc/bootrom.mem")
 
 ; Do this instead of relying on top_earlgrey_i so that we don't have to
 ; re-synthesize every time we change the bootrom

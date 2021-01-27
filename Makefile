@@ -52,7 +52,7 @@ clean:
 
 VERIFY_ARGS ?=
 .PHONY: verify sim vsources
-verify: compiled/opentitan_rkt.dep fw/bootrom.mem $(FIFOS)
+verify: compiled/opentitan_rkt.dep soc/bootrom.mem $(FIFOS)
 	raco test ++args "$(VERIFY_ARGS)" -j $(shell nproc) -s main verify
 
 fifos: $(FIFOS)
@@ -97,7 +97,7 @@ soc/opentitan.v: $(OT_SRCS)
 	$(SV2V) -I=soc/opentitan/hw/ip/prim/rtl/ -DSYNTHESIS -D=ROM_INIT_FILE=bootrom.mem $^ > $@
 
 
-# fw/bootrom.mem is an order-only prereq, since we don't actually use the data
+# soc/bootrom.mem is an order-only prereq, since we don't actually use the data
 # encoded in the smt2 output, but it needs to exist for synthesis to succeed
 soc/opentitan.smt2: soc/opentitan.v | soc/bootrom.mem
 	cd soc; yosys \
