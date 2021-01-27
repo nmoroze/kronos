@@ -1,5 +1,7 @@
 # Kronos
 
+[![Build Status](https://github.com/nmoroze/kronos/workflows/CI/badge.svg)](https://github.com/nmoroze/kronos/actions?query=workflow%3ACI)
+
 This repository contains code for my MEng thesis, "Kronos: Verifying leak-free
 reset for a system-on-chip with multiple clock domains". Kronos consists of a
 SoC based on a subset of [OpenTitan][opentitan], with a security property
