@@ -28,7 +28,7 @@ BIN2COEFLAGS := --width 32 --depth $(ROM_DEPTH) --fill 0
 FIFOS := prim_fifo_async_5_4.rkt
 FIFOS += prim_fifo_async_8_8.rkt
 FIFOS += prim_fifo_async_17_4.rkt
-FIFOS += prim_fifo_sync_100_3.rkt
+FIFOS += prim_fifo_async_100_3.rkt
 FIFOS += prim_fifo_sync_2_4.rkt
 FIFOS += prim_fifo_sync_33_2.rkt
 
