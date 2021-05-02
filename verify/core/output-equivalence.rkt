@@ -178,11 +178,10 @@
   (define impl-post (step impl-pre some-input))
   (define spec-post (step spec-pre some-input))
 
-  (define res (verify #:assume (assert (rel-pre impl-pre spec-pre))
-                      #:guarantee (assert (and (rel impl-post spec-post)
-                                               (outputs-equal? impl-post spec-post)))))
+  (define res (verify (begin (assume (rel-pre impl-pre spec-pre))
+                             (assert (and (rel impl-post spec-post)
+                                          (outputs-equal? impl-post spec-post))))))
 
-  (displayln (asserts))
   (when (sat? res)
     (define impl-pre-concrete (evaluate impl-pre (complete-solution res (symbolics impl-pre))))
     (define spec-pre-concrete (evaluate spec-pre (complete-solution res (symbolics spec-pre))))

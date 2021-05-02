@@ -134,10 +134,11 @@
     (define spec-output (get-output spec-post))
 
     (define res (verify
-                 #:assume (assert (rel impl-pre spec-pre))
-                 #:guarantee (assert
-                              (and (rel impl-post spec-post)
-                                   (equal? impl-output spec-output)))))
+                 (begin
+                   (assume (rel impl-pre spec-pre))
+                   (assert
+                    (and (rel impl-post spec-post)
+                         (equal? impl-output spec-output))))))
 
     (unsat? res))
 
@@ -146,7 +147,7 @@
   (displayln "Checking inductive step...")
   (check-true (verify-inductive-step) "Failed to verify inductive step!")
 
-  (check-equal? (length (asserts)) 0))
+  (check-true (vc-assumes (vc))))
 
 ;; (module+ main
 ;;   (require "prim_fifo_sync_16_3.rkt")

@@ -241,8 +241,8 @@
                      (rel-phase1 impl-post spec-post)
                      (equal? impl-outputs spec-outputs)))
 
-  (define res (verify #:assume (assert assumption)
-                      #:guarantee (assert assertion)))
+  (define res (verify (begin (assume assumption)
+                             (assert assertion))))
 
   (define states-related? (unsat? res))
 
@@ -301,8 +301,8 @@
   (define assertion (and (rel impl-pre spec-pre)
                          (equal? impl-output spec-output)))
 
-  (define res (verify #:assume (assert assumption)
-                      #:guarantee (assert assertion)))
+  (define res (verify (begin (assume assumption)
+                             (assert assertion))))
 
   ; Show that spec state is now fully safe, assuming that previous fields in
   ; safe-usb-registers are (which is proven in phase 1)
@@ -340,8 +340,8 @@
                      (rel impl-post spec-post)
                      (equal? impl-outputs spec-outputs)))
 
-  (define res (verify #:assume (assert assumption)
-                      #:guarantee (assert assertion)))
+  (define res (verify (begin (assume assumption)
+                             (assert assertion))))
 
   (when (and (sat? res) debug)
     (define impl-pre-concrete (evaluate impl-pre res))
@@ -395,7 +395,7 @@
   (displayln "Checking inductive step... (phase 2)")
   (check-true (verify-inductive-step-phase-2) "Failed to verify inductive step!")
 
-  (check-true (equal? (length (asserts)) 0)))
+  (check-true (vc-assumes (vc))))
 
 (module+ main
   (define-values (_ t) (time (verify-usb)))

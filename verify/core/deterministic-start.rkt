@@ -19,9 +19,9 @@
 (provide verify-core-det-start)
 
 ; We generate many fresh symbolics on each cycle, which are generally unused by
-; the next cycle. This line prevents a memory leak that occurs because Rosette's
-; default term cache keeps references to these otherwise unreachable symbolics.
-(term-cache-ephemeral!)
+; the next cycle. This line ensurses that these unused terms are garbage
+; collected.
+(gc-terms!)
 
 (define (get-reg s reg)
   (let* ([lsb (* (sub1 reg) 32)]

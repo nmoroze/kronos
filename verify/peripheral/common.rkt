@@ -77,8 +77,8 @@
                        (rel impl-post spec-post)
                        (equal? impl-outputs spec-outputs)))
 
-    (define res (verify #:assume (assert assumption)
-                        #:guarantee (assert assertion)))
+    (define res (verify (begin (assume assumption)
+                               (assert assertion))))
 
     ; Output determinism: show that the post-step spec state and outputs solely
     ; depend on the previous spec state and the inputs.
@@ -104,6 +104,6 @@
   (define (verify-all)
     (define base-res (verify-base-case))
     (define step-res (verify-inductive-step))
-    (and base-res step-res (zero? (length (asserts)))))
+    (and base-res step-res (vc-assumes (vc))))
 
   (verify-all))

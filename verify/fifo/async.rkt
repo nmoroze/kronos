@@ -232,14 +232,15 @@
     (define spec-post (step spec-pre some-input #:clk-rd clk-rd #:clk-wr clk-wr))
 
     (define res (verify
-                 #:assume (assert (and (rel impl-pre spec-pre)
-                                       (equal? (get-output impl-post) (get-output spec-post))
-                                       (invariant impl-pre)
-                                       (invariant spec-pre)))
-                 #:guarantee (assert (and (invariant impl-post)
-                                          (invariant spec-post)
-                                          (equal? (get-output impl-post) (get-output spec-post))
-                                          (rel impl-post spec-post)))))
+                 (begin
+                   (assume (and (rel impl-pre spec-pre)
+                                (equal? (get-output impl-post) (get-output spec-post))
+                                (invariant impl-pre)
+                                (invariant spec-pre)))
+                   (assert (and (invariant impl-post)
+                                (invariant spec-post)
+                                (equal? (get-output impl-post) (get-output spec-post))
+                                (rel impl-post spec-post))))))
     (define r (unsat? res))
     (unless r
       (define complete-soln (complete-solution res (append (symbolics impl-pre)
@@ -419,7 +420,7 @@
   (displayln "Checking inductive step both clocks...")
   (check-true (verify-inductive-step #t #t) "Failed to verify inductive step!")
 
-  (check-equal? (length (asserts)) 0))
+  (check-true (vc-assumes (vc))))
 
 ;; (module+ main
 ;;   (require "prim_fifo_async_16_3.rkt")
