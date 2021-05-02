@@ -78,7 +78,7 @@
    (apply-hint-if (= cycle 150)
                   (list (cons 'run-and-replace (cons gen-aux-hints '(spi_device.u_rxf_ctrl.st)))))
    (apply-hint-if (<= cycle 150)
-                  (list (cons 'untrusted-custom-hint abstract-sram-wdata-and-byte-enable)))
+                  (list (cons 'unsafe-custom-hint abstract-sram-wdata-and-byte-enable)))
    (apply-hint-if (< cycle 150)
                   (list (cons 'abstract '(
                                           spi_device.u_rxf_ctrl.st
