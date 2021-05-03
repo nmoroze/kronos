@@ -112,9 +112,7 @@
     (define spec-init (update-field impl-init 'gen_normal_fifo.storage
                                     (build-zero-vector
                                      width
-                                     ; unclear if 2^clog2 is really necessary,
-                                     ; just depth works as well
-                                     (expt 2 (clog2 depth)))))
+                                     (vector-length (get-field impl-init 'gen_normal_fifo.storage)))))
 
     (define impl-output (get-output impl-init))
     (define spec-output (get-output spec-init))

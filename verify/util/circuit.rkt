@@ -27,21 +27,17 @@
 
   ; zero out all verified FIFOs
   (update-fields state*
-                 (list
-                  (cons 'spi_device.u_fwmode_arb.u_req_fifo.gen_normal_fifo.storage
-                        (build-zero-vector 2 4))
-                  (cons 'tl_adapter_ram_main.u_rspfifo.gen_normal_fifo.storage
-                        (build-zero-vector 33 2))
-                  (cons 'u_xbar_main.u_asf_21.reqfifo.storage_rest
-                        (build-zero-vector 100 2))
-                  (cons 'spi_device.u_tx_fifo.storage_rest
-                        (build-zero-vector 8 7))
-                  (cons 'spi_device.u_rx_fifo.storage_rest
-                        (build-zero-vector 8 7))
-                  (cons 'usbdev.usbdev_avfifo.storage_rest
-                        (build-zero-vector 5 3))
-                  (cons 'usbdev.usbdev_rxfifo.storage_rest
-                        (build-zero-vector 17 1)))))
+                 (for/list ([field '(spi_device.u_fwmode_arb.u_req_fifo.gen_normal_fifo.storage
+                                     tl_adapter_ram_main.u_rspfifo.gen_normal_fifo.storage
+                                     u_xbar_main.u_asf_21.reqfifo.storage_rest
+                                     spi_device.u_tx_fifo.storage_rest
+                                     spi_device.u_rx_fifo.storage_rest
+                                     usbdev.usbdev_avfifo.storage_rest
+                                     usbdev.usbdev_rxfifo.storage_rest)])
+                   (let* ([v (get-field state* field)]
+                          [el (vector-ref v 0)])
+                     (cons field
+                           (build-zero-vector (bvwidth el) (vector-length v)))))))
 
 (define (make-input inputs)
   (define sn (new-zeroed-top_earlgrey_s))

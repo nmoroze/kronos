@@ -81,6 +81,11 @@
     (!for/list ([output outputs])
                ((cdr output) state)))
 
+  (define (select* storage bvidx)
+    (if (< (clog2 (vector-length storage)) (clog2 depth))
+        (select storage (extract (sub1 (clog2 (vector-length storage))) 0 bvidx))
+        (select storage bvidx)))
+
   (define (get-live-storage state)
     (define storage_first (get-field state 'storage_first#past_q_wire))
     (define storage_rest (get-field state 'storage_rest#0))
@@ -95,7 +100,7 @@
           (let* ([i (ptr-idx rptr)]
                  [value (if (bvzero? i)
                             storage_first
-                            (select storage_rest (bvsub1 i)))])
+                            (select* storage_rest (bvsub1 i)))])
             (loop (inc-ptr rptr) (cons value acc) (sub1 fuel))))))
 
   (define (get-regs state)
@@ -205,7 +210,7 @@
 
   (define (verify-base-case)
     (define impl-init (reset (new-symbolic-fifo_s)))
-    (define spec-init (update-field impl-init 'storage_rest#0 (build-zero-vector width (sub1 depth))))
+    (define spec-init (update-field impl-init 'storage_rest#0 (build-zero-vector width (vector-length (get-field impl-init 'storage_rest#0)))))
     (define res (verify (assert (and (rel impl-init spec-init)
                                      (equal? (get-output impl-init)
                                              (get-output spec-init))
