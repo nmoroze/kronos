@@ -11,7 +11,8 @@ For more information, see the [thesis](doc/thesis.pdf)!
 
 ## Getting Started
 ### Dependencies
-- [sv2v](https://github.com/zachjs/sv2v)
+- [sv2v](https://github.com/zachjs/sv2v) (tested on commit 8e1f2bb, newer
+  versions may break)
 - [Yosys (custom fork)][yosys-fork]
 - [rtl (custom fork)][rtl-fork]
 - [Racket](https://racket-lang.org/)
