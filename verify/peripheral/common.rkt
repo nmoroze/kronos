@@ -104,6 +104,6 @@
   (define (verify-all)
     (define base-res (verify-base-case))
     (define step-res (verify-inductive-step))
-    (and base-res step-res (vc-assumes (vc))))
+    (and base-res step-res (vc-true? (vc))))
 
   (verify-all))

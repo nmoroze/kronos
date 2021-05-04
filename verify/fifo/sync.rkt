@@ -145,7 +145,7 @@
   (displayln "Checking inductive step...")
   (check-true (verify-inductive-step) "Failed to verify inductive step!")
 
-  (check-true (vc-assumes (vc))))
+  (check-true (vc-true? (vc))))
 
 ;; (module+ main
 ;;   (require "prim_fifo_sync_16_3.rkt")

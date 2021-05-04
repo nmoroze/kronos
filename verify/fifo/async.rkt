@@ -431,7 +431,7 @@
   (displayln "Checking inductive step both clocks...")
   (check-true (verify-inductive-step #t #t) "Failed to verify inductive step!")
 
-  (check-true (vc-assumes (vc))))
+  (check-true (vc-true? (vc))))
 
 ;; (module+ main
 ;;   (require "prim_fifo_async_16_3.rkt")

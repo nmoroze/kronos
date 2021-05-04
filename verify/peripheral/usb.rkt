@@ -395,7 +395,7 @@
   (displayln "Checking inductive step... (phase 2)")
   (check-true (verify-inductive-step-phase-2) "Failed to verify inductive step!")
 
-  (check-true (vc-assumes (vc))))
+  (check-true (vc-true? (vc))))
 
 (module+ main
   (define-values (_ t) (time (verify-usb)))
