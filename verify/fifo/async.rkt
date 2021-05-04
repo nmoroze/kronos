@@ -81,6 +81,12 @@
     (!for/list ([output outputs])
                ((cdr output) state)))
 
+  ; Special version of select for use in get-live-storage: since the width of
+  ; the "storage_rest" memory is Depth-1, and the pointer index is clog2(Depth),
+  ; we might run into indexing issues where the index is too wide if Depth is a
+  ; power of 2. We check for this case here, and truncate the index if needed --
+  ; this shouldn't cause problems since we know the index should only be a legal
+  ; value.
   (define (select* storage bvidx)
     (if (< (clog2 (vector-length storage)) (clog2 depth))
         (select storage (extract (sub1 (clog2 (vector-length storage))) 0 bvidx))
