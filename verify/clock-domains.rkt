@@ -587,6 +587,13 @@
 (provide usb-registers)
 (define usb-registers
   '(
+    ; list doesn't include the following registers:
+    ;  |usbdev.usbdev_impl.u_usbdev_linkstate.filter_pwr_sense.stored_vector_q [5]|
+    ;  |usbdev.usbdev_impl.u_usbdev_linkstate.filter_se0.stored_vector_q [5]|
+    ;  |usbdev.usbdev_impl.u_usbdev_linkstate.filter_idle.stored_vector_q [5]|
+    ; even though they are present in the circuit state, they are unused: Yosys
+    ; doesn't update them in the transition function, and they also do not affect
+    ; anything else in the circuit.
     |usbdev.u_memory_2p.gen_srammem.u_mem.gen_mem_generic.u_impl_generic.b_rdata_o|
     |usbdev.cdc_sys_to_usb.q|
     |usbdev.i_usbdev_iomux.cdc_io_to_usb.q|
